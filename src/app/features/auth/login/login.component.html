@@ -1,0 +1,13 @@
+<div class="auth-card">
+  <h2>Connect</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+
+    <input type="email" formControlName="email" placeholder="Email (Username)">
+    <input type="password" formControlName="password" placeholder="Mot de passe">
+
+
+    <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+  </form>
+  <p>Déjà inscrit ? <a routerLink="/register">Se connecter ici</a></p>
+</div>

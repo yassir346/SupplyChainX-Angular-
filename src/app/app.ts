@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HomePage } from './home-page/home-page';
+import { HomePage } from './features/home-page/home-page';
 import {Navbar} from './features/navbar/navbar';
 
 @Component({

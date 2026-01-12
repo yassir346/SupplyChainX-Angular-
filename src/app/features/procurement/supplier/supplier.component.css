@@ -1,0 +1,26 @@
+/* Reusing core container and table styles from RawMaterial */
+.container { padding: 2rem; max-width: 1100px; margin: 0 auto; }
+.header-section { margin-bottom: 2rem; border-left: 5px solid #10b981; padding-left: 1rem; }
+
+.form-card { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+.form-grid { display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+
+.input-group label { display: block; font-size: 0.8rem; color: #64748b; margin-bottom: 0.3rem; font-weight: 600; }
+input { width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 4px; box-sizing: border-box; }
+
+.btn-add { background: #10b981; color: white; border: none; padding: 0.8rem; border-radius: 4px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+.btn-add:hover { background: #059669; }
+
+.table-container { background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 1rem; background: #f8fafc; border-bottom: 2px solid #edf2f7; color: #475569; }
+td { padding: 1rem; border-bottom: 1px solid #f1f5f9; }
+
+.contact-code { background: #f1f5f9; padding: 4px 8px; border-radius: 4px; color: #475569; font-size: 0.9rem; }
+
+.rating-stars { color: #cbd5e1; font-size: 1.2rem; }
+.rating-stars .active { color: #f59e0b; }
+
+.btn-delete { color: #ef4444; background: none; border: 1px solid #fee2e2; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; }
+.btn-delete:hover { background: #fee2e2; }
+.text-center { text-align: center; }

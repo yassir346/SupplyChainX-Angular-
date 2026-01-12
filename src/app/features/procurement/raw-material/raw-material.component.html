@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="header-section">
+    <h2>Raw Material Management</h2>
+    <p>Track and manage your inventory levels in real-time.</p>
+  </div>
+
+  <div class="form-card">
+    <form [formGroup]="materialForm" (ngSubmit)="onSubmit()" class="material-form">
+      <div class="form-grid">
+        <input formControlName="name" placeholder="Material Name">
+        <input type="number" formControlName="stock" placeholder="Current Stock">
+        <input type="number" formControlName="stockMin" placeholder="Alert Level (Min)">
+        <input formControlName="unit" placeholder="Unit (kg, L, m)">
+      </div>
+      <div class="mt-4">
+        <label class="label font-bold text-gray-700">Suppliers for this material:</label>
+        <div class="grid grid-cols-2 gap-2 bg-base-200 p-4 rounded-lg">
+          @for (s of suppliers(); track s.id) {
+            <label class="flex items-center gap-2 cursor-pointer p-2 hover:bg-base-300 rounded">
+              <input type="checkbox"
+                     class="checkbox checkbox-primary"
+                     [checked]="selectedSupplierIds().includes(s.id)"
+                     (change)="toggleSupplier(s.id)">
+              <span class="text-sm">{{ s.name }}</span>
+            </label>
+          }
+        </div>
+      </div>
+      <button type="submit" [disabled]="materialForm.invalid" class="btn-add">
+        + Add Material
+      </button>
+    </form>
+  </div>
+
+  <table class="table w-full">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Stock</th>
+      <th>Unit</th>
+      <th>Suppliers</th> <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (material of materials(); track material.id) {
+        <tr>
+          <td>{{ material.name }}</td>
+          <td>
+          <span [class.text-error]="material.stock < material.stockMin">
+            {{ material.stock }}
+          </span>
+          </td>
+          <td>{{ material.unit }}</td>
+          <td>
+            <div class="flex flex-wrap gap-1">
+              @for (sName of material.supplierNames; track sName) {
+                <span class="badge badge-ghost badge-sm">{{ sName }}</span>
+              } @empty {
+                <span class="text-xs italic opacity-50">No suppliers</span>
+              }
+            </div>
+          </td>
+          <td>
+            <button (click)="onDelete(material.id)" class="btn btn-ghost btn-xs text-error">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

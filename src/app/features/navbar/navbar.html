@@ -1,0 +1,62 @@
+<div class="navbar bg-base-100 shadow-sm">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl">SupplyChainX</a>
+  </div>
+  <ul class="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box gap-2">
+    <li class="dropdown dropdown-hover">
+      <div tabindex="0" role="button" class="m-1">Supply</div>
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+        <li><a routerLink="/procurement/suppliers" routerLinkActive="active">Suppliers</a></li>
+        <li><a routerLink="/procurement/materials" routerLinkActive="active">Raw Materials</a></li>
+        <li><a>Supply Orders</a></li>
+      </ul>
+    </li>
+    <li class="dropdown dropdown-hover">
+      <div tabindex="0" role="button" class="m-1">Production</div>
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+        <li><a>Products</a></li>
+        <li><a>Production Orders</a></li>
+        <li><a>Bill of Materials (BOM)</a></li>
+      </ul>
+    </li>
+    <li class="dropdown dropdown-hover">
+      <div tabindex="0" role="button" class="m-1">Delivery</div>
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+        <li><a>Customers</a></li>
+        <li><a>Orders</a></li>
+        <li><a>Deliveries</a></li>
+      </ul>
+    </li>
+  </ul>
+  <div class="flex gap-2">
+    <input type="text" placeholder="Look for a supplier, product, delivery..." class="input input-bordered w-24 md:w-auto" />
+    @if (authService.isAuthenticated()) {
+      <div class="flex items-center gap-3 ml-2">
+        <div class="flex flex-col items-end leading-tight hidden sm:flex">
+          <span class="text-sm font-bold">{{ authService.currentUser()?.sub || 'User' }}</span>
+          <span class="text-[10px] uppercase opacity-60">{{ authService.currentUser()?.roles }}</span>
+        </div>
+
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar border-2 border-primary/20">
+            <div class="w-10 rounded-full">
+              <img [src]="'https://ui-avatars.com/api/?background=random&name=' + authService.currentUser()?.sub" alt="User" />
+            </div>
+          </div>
+          <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow-xl border border-base-200">
+            <li class="menu-title">Account</li>
+            <li><a routerLink="/profile">Profile</a></li>
+            <li><a routerLink="/settings">Settings</a></li>
+            <div class="divider my-1"></div>
+            <li><a (click)="onLogout()" class="text-error font-bold">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    } @else {
+      <div class="flex gap-2">
+        <a routerLink="/login" class="btn btn-ghost btn-sm">Login</a>
+        <a routerLink="/register" class="btn btn-primary btn-sm">Register</a>
+      </div>
+    }
+  </div>
+</div>

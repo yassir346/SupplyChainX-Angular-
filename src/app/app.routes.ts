@@ -1,17 +1,20 @@
 import { Routes } from '@angular/router';
+import {authGuard} from './core/guards/auth.guards';
 
 export const routes: Routes = [
   // Authentication
-  { path: 'login', loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent) },
+  { path: 'login',
+    loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent) },
   { path: 'register', loadComponent: () => import('./features/auth/register/register.component').then(m => m.RegisterComponent) },
 
   // Procurement Module (Approvisionnement)
   {
     path: 'procurement',
+    canActivate: [authGuard],
     children: [
       // { path: 'dashboard', loadComponent: () => import('./features/procurement/dashboard.component').then(m => m.DashboardComponent) },
-      // { path: 'suppliers', loadComponent: () => import('./features/procurement/suppliers.component').then(m => m.SuppliersComponent) },
-      { path: 'materials', loadComponent: () => import('./features/raw-material/raw-material.component').then(m => m.RawMaterialComponent) },
+      { path: 'suppliers', loadComponent: () => import('./features/procurement/supplier/supplier.component').then(m => m.SupplierComponent) },
+      { path: 'materials', loadComponent: () => import('./features/procurement/raw-material/raw-material.component').then(m => m.RawMaterialComponent) },
       // { path: 'orders', loadComponent: () => import('./features/procurement/orders.component').then(m => m.OrdersComponent) },
     ]
   },
@@ -47,6 +50,7 @@ export const routes: Routes = [
   // },
   //
   // Default redirect
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' }
+  { path: 'home', loadComponent: () => import('./features/home-page/home-page')
+      .then(m => m.HomePage)},
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

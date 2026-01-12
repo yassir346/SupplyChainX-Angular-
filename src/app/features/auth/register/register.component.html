@@ -1,0 +1,29 @@
+<div class="auth-card">
+  <h2>Créer un compte</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <input type="text" formControlName="firstName" placeholder="Prénom">
+      <input type="text" formControlName="lastName" placeholder="Nom">
+    </div>
+
+    <input type="email" formControlName="email" placeholder="Email (Username)">
+    <input type="password" formControlName="password" placeholder="Mot de passe">
+
+    <label for="role">Assigner un rôle :</label>
+    <select formControlName="role" id="role">
+      <option value="GESTIONNAIRE_APPROVISIONNEMENT">GESTIONNAIRE APPROVISIONNEMENT</option>
+      <option value="RESPONSABLE_ACHATS">RESPONSABLE ACHATS</option>
+      <option value="SUPERVISEUR_LOGISTIQUE">SUPERVISEUR LOGISTIQUE</option>
+      <option value="CHEF_PRODUCTION">CHEF PRODUCTION</option>
+      <option value="PLANIFICATEUR">PLANIFICATEUR</option>
+      <option value="SUPERVISEUR_PRODUCTION">SUPERVISEUR PRODUCTION</option>
+      <option value="GESTIONNAIRE_COMMERCIAL">GESTIONNAIRE COMMERCIAL</option>
+      <option value="RESPONSABLE_LOGISTIQUE">RESPONSABLE LOGISTIQUE</option>
+      <option value="SUPERVISEUR_LIVRAISONS">SUPERVISEUR LIVRAISONS</option>
+      <option value="ADMIN">Admin</option>
+    </select>
+
+    <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+  </form>
+  <p>Déjà inscrit ? <a routerLink="/login">Se connecter ici</a></p>
+</div>
