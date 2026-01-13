@@ -1,61 +1,74 @@
-<div class="container">
-  <div class="header-section">
-    <h2>Supplier Directory</h2>
-    <p>Manage verified partners and track performance ratings.</p>
-  </div>
+  <div class="container">
+    <div class="header-section">
+      <h2>Supplier Directory</h2>
+      <p>Manage verified partners and track performance ratings.</p>
+    </div>
 
-  <div class="form-card">
-    <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()" class="material-form">
-      <div class="form-grid">
-        <div class="input-group">
-          <label>Company Name</label>
-          <input formControlName="name" placeholder="e.g. Steel Corp">
+    <div class="form-card">
+      <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()" class="material-form">
+        <div class="form-grid">
+          <div class="input-group">
+            <label>Company Name</label>
+            <input formControlName="name" placeholder="e.g. Steel Corp">
+          </div>
+          <div class="input-group">
+            <label>Contact Email</label>
+            <input formControlName="contact" type="email" placeholder="contact@supplier.com">
+          </div>
+          <div class="input-group">
+            <label>Rating (1-5)</label>
+            <input formControlName="rating" type="number" min="1" max="5">
+          </div>
         </div>
-        <div class="input-group">
-          <label>Contact Email</label>
-          <input formControlName="contact" type="email" placeholder="contact@supplier.com">
+        <div class="materials-selection-container">
+          <label class="block text-sm font-bold mb-2">Select Materials Provided:</label>
+          <div class="grid grid-cols-2 gap-2 bg-gray-50 p-3 rounded-lg border max-h-32 overflow-y-auto">
+            @for (material of availableMaterials(); track material.id) {
+              <label class="flex items-center gap-2 text-xs cursor-pointer hover:bg-gray-100 p-1 rounded">
+                <input type="checkbox"
+                       [checked]="selectedMaterialIds().includes(material.id)"
+                       (change)="toggleMaterials(material.id)">
+                {{ material.name }}
+              </label>
+            }
+          </div>
         </div>
-        <div class="input-group">
-          <label>Rating (1-5)</label>
-          <input formControlName="rating" type="number" min="1" max="5">
-        </div>
-      </div>
-      <button type="submit" [disabled]="supplierForm.invalid" class="btn-add">
-        Register New Supplier
-      </button>
-    </form>
-  </div>
+        <button type="submit" [disabled]="supplierForm.invalid" class="btn-add">
+          Register New Supplier
+        </button>
+      </form>
+    </div>
 
-  <div class="table-container">
-    <table>
-      <thead>
-      <tr>
-        <th>Supplier Name</th>
-        <th>Contact Info</th>
-        <th>Quality Rating</th>
-        <th class="text-center">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-        @for (s of suppliers(); track s.id) {
-          <tr>
-            <td><strong>{{ s.name }}</strong></td>
-            <td><code class="contact-code">{{ s.contact }}</code></td>
-            <td>
-              <span class="rating-stars">
-                @for (star of [1,2,3,4,5]; track star) {
-                  <span [class.active]="star <= s.rating">★</span>
-                }
-              </span>
-            </td>
-            <td class="text-center">
-              <button class="btn-delete" (click)="onDelete(s.id)">Remove</button>
-            </td>
-          </tr>
-        } @empty {
-          <tr><td colspan="4" class="empty-msg">No suppliers registered yet.</td></tr>
-        }
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+        <tr>
+          <th>Supplier Name</th>
+          <th>Contact Info</th>
+          <th>Quality Rating</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (s of suppliers(); track s.id) {
+            <tr>
+              <td><strong>{{ s.name }}</strong></td>
+              <td><code class="contact-code">{{ s.contact }}</code></td>
+              <td>
+                <span class="rating-stars">
+                  @for (star of [1,2,3,4,5]; track star) {
+                    <span [class.active]="star <= s.rating">★</span>
+                  }
+                </span>
+              </td>
+              <td class="text-center">
+                <button class="btn-delete" (click)="onDelete(s.id)">Remove</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr><td colspan="4" class="empty-msg">No suppliers registered yet.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>

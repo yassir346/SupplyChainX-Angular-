@@ -10,3 +10,4 @@ export interface RawMaterialResponse extends RawMaterialRequest {
   id: number;
   supplierNames: string[];
 }
+

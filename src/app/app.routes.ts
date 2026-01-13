@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import {authGuard} from './core/guards/auth.guards';
+import {SupplyOrderComponent} from './features/procurement/supply-order/supply-order.component';
 
 export const routes: Routes = [
   // Authentication
@@ -15,7 +16,7 @@ export const routes: Routes = [
       // { path: 'dashboard', loadComponent: () => import('./features/procurement/dashboard.component').then(m => m.DashboardComponent) },
       { path: 'suppliers', loadComponent: () => import('./features/procurement/supplier/supplier.component').then(m => m.SupplierComponent) },
       { path: 'materials', loadComponent: () => import('./features/procurement/raw-material/raw-material.component').then(m => m.RawMaterialComponent) },
-      // { path: 'orders', loadComponent: () => import('./features/procurement/orders.component').then(m => m.OrdersComponent) },
+      { path: 'orders', loadComponent: () => import('./features/procurement/supply-order/supply-order.component').then(m => m.SupplyOrderComponent) },
     ]
   },
 
