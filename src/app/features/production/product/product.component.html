@@ -1,0 +1,86 @@
+<div class="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+  <div class="lg:col-span-1 card bg-base-100 shadow-xl border">
+    <div class="card-body">
+      <h2 class="card-title text-primary">Define New Product</h2>
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+        <div class="form-control">
+          <label class="label"><span class="label-text">Product Name</span></label>
+          <input formControlName="name" class="input input-bordered w-full" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div class="form-control">
+            <label class="label"><span class="label-text">Cost ($)</span></label>
+            <input type="number" formControlName="cost" class="input input-bordered" />
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Time (min)</span></label>
+            <input type="number" formControlName="productionTime" class="input input-bordered" />
+          </div>
+        </div>
+
+        <div class="divider text-xs font-bold uppercase opacity-50">Composition (BOM)</div>
+
+        <div formArrayName="billOfMaterialRequestList" class="space-y-2">
+          @for (item of bomArray.controls; track $index; let i = $index) {
+            <div [formGroupName]="i" class="flex gap-2 items-end bg-base-200 p-2 rounded-lg">
+              <div class="flex-1">
+                <select formControlName="rawMaterialId" class="select select-sm select-bordered w-full">
+                  <option [ngValue]="null">Select Material</option>
+                  @for (m of availableMaterials(); track m.id) {
+                    <option [value]="m.id">{{ m.name }}</option>
+                  }
+                </select>
+              </div>
+              <div class="w-20">
+                <input type="number" formControlName="quantityPerProduct" class="input input-sm input-bordered w-full" />
+              </div>
+              <button (click)="removeMaterialRow(i)" type="button" class="btn btn-sm btn-circle btn-ghost text-error">✕</button>
+            </div>
+          }
+        </div>
+
+        <button type="button" (click)="addMaterialRow()" class="btn btn-sm btn-outline btn-block mt-2">
+          + Add Raw Material
+        </button>
+
+        <button type="submit" [disabled]="productForm.invalid" class="btn btn-primary w-full mt-4">Save Product</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="lg:col-span-2 space-y-4">
+    <h2 class="text-2xl font-bold px-2">Production Catalog</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      @for (p of products(); track p.id) {
+        <div class="card bg-base-100 shadow-md border-t-4 border-primary">
+          <div class="card-body p-4">
+            <div class="flex justify-between items-start">
+              <h3 class="font-bold text-lg">{{ p.name }}</h3>
+              <div class="badge badge-secondary">Stock: {{ p.stock }}</div>
+            </div>
+
+            <div class="text-sm opacity-70">
+              <p>💰 Cost: ${{ p.cost }}</p>
+              <p>⏱️ Time: {{ p.productionTime }} min</p>
+            </div>
+
+            <div class="mt-4">
+              <p class="text-xs font-bold mb-2">REQUIRED MATERIALS:</p>
+              <div class="flex flex-wrap gap-2">
+                @for (bom of p.billOfMaterialResponseList; track bom.billOfMaterialId) {
+                  <span class="badge badge-ghost text-xs gap-1">
+                    {{ bom.rawMaterialName }}
+                    <span class="font-bold text-primary">x{{ bom.quantityTypePerProduct }}</span>
+                  </span>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

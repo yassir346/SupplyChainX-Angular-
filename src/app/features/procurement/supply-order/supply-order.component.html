@@ -1,0 +1,90 @@
+<div class="p-6 space-y-6">
+  <div class="card bg-base-100 shadow-xl border border-base-200">
+    <div class="card-body">
+      <h2 class="card-title text-primary">Create Supply Order</h2>
+
+      <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="form-control">
+            <label class="label"><span class="label-text">Supplier</span></label>
+            <select formControlName="supplierId" class="select select-bordered">
+              <option [ngValue]="null" disabled>Select a supplier</option>
+              @for (s of suppliers(); track s.id) {
+                <option [value]="s.id">{{ s.name }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="form-control">
+            <label class="label"><span class="label-text">Order Date</span></label>
+            <input type="date" formControlName="orderDate" class="input input-bordered" />
+          </div>
+        </div>
+
+        <div class="divider">Order Items</div>
+
+        <div formArrayName="rawMaterials" class="space-y-2">
+          @for (item of rawMaterialsFormArray.controls; track $index; let i = $index) {
+            <div [formGroupName]="i" class="flex gap-2 items-end bg-base-200 p-3 rounded-lg">
+              <div class="form-control flex-1">
+                <label class="label"><span class="label-text text-xs">Material</span></label>
+                <select formControlName="rawMaterialId" class="select select-sm select-bordered w-full">
+                  <option [ngValue]="null" disabled>Select Material</option>
+                  @for (m of rawMaterialsList(); track m.id) {
+                    <option [value]="m.id">{{ m.name }} ({{ m.unit }})</option>
+                  }
+                </select>
+              </div>
+              <div class="form-control w-32">
+                <label class="label"><span class="label-text text-xs">Quantity</span></label>
+                <input type="number" formControlName="quantity" class="input input-sm input-bordered" />
+              </div>
+              <button type="button" (click)="removeMaterial(i)" class="btn btn-sm btn-circle btn-error btn-outline">✕</button>
+            </div>
+          }
+        </div>
+
+        <button type="button" (click)="addMaterial()" class="btn btn-outline btn-sm btn-block mt-2">
+          + Add Material to Order
+        </button>
+
+        <div class="card-actions justify-end mt-4">
+          <button type="submit" [disabled]="orderForm.invalid || rawMaterialsFormArray.length === 0" class="btn btn-primary">
+            Submit Order
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto shadow-lg rounded-xl">
+    <table class="table table-zebra bg-base-100">
+      <thead class="bg-base-200">
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Supplier</th>
+        <th>Items</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (o of orders(); track o.id) {
+          <tr>
+            <td>#{{ o.id }}</td>
+            <td>{{ o.date }}</td>
+            <td><strong>{{ o.supplier.name }}</strong></td>
+            <td>
+              <div class="flex flex-col gap-1">
+                @for (item of o.rawMaterialResponseList; track item.id) {
+                  <span class="text-xs">{{ item.name }} (x{{ item.quantity }})</span>
+                }
+              </div>
+            </td>
+            <td><div class="badge badge-warning text-xs">{{ o.status }}</div></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

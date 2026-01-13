@@ -21,15 +21,15 @@ export const routes: Routes = [
   },
 
   // Production Module
-  // {
-  //   path: 'production',
-  //   children: [
+  {
+    path: 'production',
+    children: [
   //     { path: 'dashboard', loadComponent: () => import('./features/production/dashboard.component').then(m => m.DashboardComponent) },
-  //     { path: 'products', loadComponent: () => import('./features/production/products.component').then(m => m.ProductsComponent) },
+      { path: 'products', loadComponent: () => import('./features/production/product/product.component').then(m => m.ProductComponent) },
   //     { path: 'orders', loadComponent: () => import('./features/production/orders.component').then(m => m.OrdersComponent) },
-  //   ]
-  // },
-  //
+    ]
+  },
+
   // // Delivery Module (Livraison)
   // {
   //   path: 'delivery',
