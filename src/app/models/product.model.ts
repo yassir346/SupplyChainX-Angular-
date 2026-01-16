@@ -1,7 +1,7 @@
 // For sending data to the Backend
 export interface BomRequest {
   rawMaterialId: number;
-  quantityPerProduct: number;
+  quantity: number;
 }
 
 export interface ProductRequest {

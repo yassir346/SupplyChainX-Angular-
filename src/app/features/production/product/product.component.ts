@@ -59,10 +59,20 @@ export class ProductComponent implements OnInit{
       this.productService.create(this.productForm.value as ProductRequest).subscribe({
         next: (newProd) => {
           this.products.update(list => [...list, newProd]);
-          this.productForm.reset();
+          this.productForm.reset({
+            productionTime: 0,
+            cost: 0,
+            stock: 0
+          });
           this.bomArray.clear();
         }
       });
     }
+  }
+
+  onDelete(id: number){
+    this.productService.delete(id).subscribe(() => {
+      this.products.update(list => list.filter(p => p.id !== id))
+    })
   }
 }

@@ -16,8 +16,12 @@
             <input type="number" formControlName="cost" class="input input-bordered" />
           </div>
           <div class="form-control">
-            <label class="label"><span class="label-text">Time (min)</span></label>
+            <label class="label"><span class="label-text">Production Time (min)</span></label>
             <input type="number" formControlName="productionTime" class="input input-bordered" />
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Initial Stock</span></label>
+            <input type="number" formControlName="stock" class="input input-bordered w-full" />
           </div>
         </div>
 
@@ -64,7 +68,7 @@
 
             <div class="text-sm opacity-70">
               <p>💰 Cost: ${{ p.cost }}</p>
-              <p>⏱️ Time: {{ p.productionTime }} min</p>
+              <p>⏱️ Production Time: {{ p.productionTime }} min</p>
             </div>
 
             <div class="mt-4">
