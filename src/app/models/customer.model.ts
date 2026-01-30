@@ -21,6 +21,6 @@ export interface CustomerState {
   totalElements: number;
   totalPages: number;
   loadingList: boolean;
-  loadingCreate: boolean;
+  loadingDetail: boolean;
   error: string | null;
 }

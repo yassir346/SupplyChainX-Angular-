@@ -1,5 +1,5 @@
 import { createActionGroup, props, emptyProps } from '@ngrx/store';
-import {CustomerSearchParams} from '../../../../models/customer.model';
+import {Customer, CustomerSearchParams} from '../../../../models/customer.model';
 
 export const CustomerActions = createActionGroup({
   source: 'Customer Module',
@@ -13,5 +13,16 @@ export const CustomerActions = createActionGroup({
     'Delete Customer Failure': props<{ error: any }>(),
 
     'Set Search Params': props<{ params: Partial<CustomerSearchParams> }>(),
+    'Clear Selected Customer': emptyProps(),
+
+    'Create Customer': props<{ customer: Customer }>(),
+    'Create Customer Success': props<{ customer: Customer }>(),
+    'Create Customer Failure': props<{ error: any }>(),
+
+    'Update Customer': props<{ id: number, customer: Customer }>(),
+    'Update Customer Success': props<{ customer: Customer }>(),
+    'Update Customer Failure': props<{ error: any }>(),
+
+    'Select Customer': props<{ customer: Customer }>(),
   }
 });

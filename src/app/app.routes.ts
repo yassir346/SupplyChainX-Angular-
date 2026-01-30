@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import {authGuard} from './core/guards/auth.guards';
 import {SupplyOrderComponent} from './features/procurement/supply-order/supply-order.component';
+import {
+  CustomerListComponent
+} from './features/delivery/customer/components/customer-list.component/customer-list.component';
 
 export const routes: Routes = [
   // Authentication
@@ -31,15 +34,15 @@ export const routes: Routes = [
   },
 
   // // Delivery Module (Livraison)
-  // {
-  //   path: 'delivery',
-  //   children: [
+  {
+    path: 'delivery',
+    children: [
   //     { path: 'dashboard', loadComponent: () => import('./features/delivery/dashboard.component').then(m => m.DashboardComponent) },
-  //     { path: 'customers', loadComponent: () => import('./features/delivery/customers.component').then(m => m.CustomersComponent) },
+      { path: 'customers', loadComponent: () => import('./features/delivery/customer/components/customer-list.component/customer-list.component').then(m => m.CustomerListComponent) },
   //     { path: 'orders', loadComponent: () => import('./features/delivery/orders.component').then(m => m.OrdersComponent) },
   //     { path: 'deliveries', loadComponent: () => import('./features/delivery/deliveries.component').then(m => m.DeliveriesComponent) },
-  //   ]
-  // },
+    ]
+  },
   //
   // // Admin Module
   // {
